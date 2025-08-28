@@ -76,5 +76,5 @@ Jóvenes profesionales y adultos con ingresos regulares que no tienen hábitos d
 Problema que resuelve:
 La falta de herramientas prácticas para llevar un presupuesto y la dificultad para mantener hábitos financieros saludables.
 
-Explicacion:
+### Explicacion:
 Elegi esta opción por que me parece que es mas factible crear una aplicación flexible para la mayor cantidad de usuarios posible ya que el tener problemas en el control de los gastos es algo relativamente comun.
