@@ -1,0 +1,402 @@
+#PROTOTIPO.HTML
+
+*en este punto tomamos la problematica que mencionamos anteriror mente en donde
+con la ayuda de la ia ,le pedimos que nos diera 3 ideas de negocios las cuales fueran 
+rentables  y que nosotros como ingenieros podamos inplementar  y de las 3 elejimos la que mas 
+nos llama la atencion a la cual se tomo y con ia le pedimos que nos creara un codigo html en donde nos 
+trara como seria la primera parte de nustra app  prototipo .
+
+#Soluciones tecnologicas 
+
+*1 Asistente virtual de salud para pacientes crónicos
+ Idea: Un chatbot inteligente (IA) que:
+Recuerde horarios de medicación.
+Ayude a solicitar citas (con formularios automatizados).
+Guíe a la familia sobre dónde encontrar medicamentos.
+Genere reportes de adherencia para médicos.
+Rentabilidad:
+Suscripción mensual para familias que quieran un asistente digital.
+Licenciamiento del sistema a EPS o aseguradoras.
+ Implementación inicial:
+Integración con WhatsApp Business API para llegar fácil al usuario.
+Motor de IA con GPT + base de datos médica.
+Panel web para familiares/médicos con reportes.
+
+
+*2Plataforma de gestión de citas médicas con geolocalización de farmacias
+ Idea: Una aplicación web/móvil que permita:
+Agendar citas médicas en línea (integrada con EPS/IPS o médicos independientes).
+Notificar recordatorios automáticos.
+Usar geolocalización para mostrar farmacias cercanas con disponibilidad de medicamentos.
+ Rentabilidad:
+Modelo de suscripción para clínicas y consultorios pequeños que quieran digitalizar sus agendas.
+Publicidad o convenios con farmacias para que aparezcan destacadas.
+ Implementación inicial:
+Frontend en React o Flutter (para web y móvil).
+Backend en Java + Spring Boot o Node.js.
+API de mapas (Google Maps o Mapbox).
+
+*3Asistente virtual de salud para pacientes crónicos
+ Idea: Un chatbot inteligente (IA) que:
+Recuerde horarios de medicación.
+Ayude a solicitar citas (con formularios automatizados).
+Guíe a la familia sobre dónde encontrar medicamentos.
+Genere reportes de adherencia para médicos.
+ Rentabilidad:
+Suscripción mensual para familias que quieran un asistente digital.
+Licenciamiento del sistema a EPS o aseguradoras.
+Posible modelo freemium (funciones básicas gratis y premium con reportes avanzados).
+ Implementación inicial:
+Integración con WhatsApp Business API para llegar fácil al usuario.
+Motor de IA con GPT + base de datos médica propia.
+Panel web para familiares y médicos con reportes de adherencia y recordatorios.
+
+#Idea selecionada 
+la idea selecionada fue la tercera de las 3 que con la ayuda de la ia nos dio  en la cual tenemos la siguiente propuesta :
+
+-	Programa de Asistencia Presencial y Telefónica para Citas y Medicamentos
+-	Descripción:
+Un sistema de apoyo que no dependa únicamente de aplicaciones o internet, sino que incluya atención presencial y telefónica, con personal capacitado para ayudar a personas que no pueden o no saben manejar herramientas digitales.
+	________________________________________
+-	Cómo funcionaría:
+-	Línea Telefónica de Atención Humana
+-	Número gratuito disponible 24/7, donde operadores registren las solicitudes de citas médicas o la ubicación de farmacias que entregan medicamentos.
+-	Operadores entrenados para hablar claro, repetir información y confirmar que la persona entendió.
+-	Posibilidad de que un familiar o cuidador llame en nombre de la persona.
+-	Puntos de Apoyo en la Comunidad
+-	Funcionarios en centros de salud, alcaldías locales, y bibliotecas públicas que ayuden a:
+-	Solicitar citas.
+-	Ubicar farmacias o centros de entrega de medicamentos.
+-	Tramitar autorizaciones.
+-	Atención prioritaria para personas mayores o con discapacidad.
+-	Acompañamiento por Voluntarios o Gestores de Salud
+-	Red de voluntarios o trabajadores comunitarios que puedan ir a la casa si la persona no puede desplazarse.
+-	Estos gestores llevan la información impresa o incluso los medicamentos en casos autorizados.
+-	Sistema de Registro Interno
+-	Aunque la persona no use tecnología, el sistema centralizado guarda sus datos, historial de citas y entregas para que el operador o funcionario siempre tenga la información actualizada.
+	________________________________________
+-	Beneficios:
+-	La persona no necesita saber usar un celular o internet.
+-	Atención humana y personalizada.
+-	Reduce el estrés y la frustración de intentar hacer trámites digitales.
+-	Mayor cobertura para adultos mayores y personas con discapacidad.
+
+*Esta propuesta nos dice que es un programa de atencion para personas mayores y personas con discapacidad ,en donde se puede encontrar con de manera mucho mas facil 
+y en donde el servicio se encuentre activo 24/7  dando la facilidad a las personas de poder solicitar sus citas , medicamentos , diferentes cervicios 
+que se necesiten ya que no es muy comun con tar con un servicio especializado para esta poblacion y en a cual le permita a 
+las personas saber donde encontrar sus medicamentos o los lugares en los cuales les puedan prestar el servicio espacializado que necesitan y al final tenemos el codigo de nuestro prototipo en html
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Programa de Asistencia – Prototipo (No Funcional)</title>
+  <style>
+    :root{
+      --bg:#0f172a;          /* slate-900 */
+      --card:#111827;        /* gray-900 */
+      --muted:#94a3b8;       /* slate-400 */
+      --text:#e5e7eb;        /* gray-200 */
+      --brand:#22c55e;       /* green-500 */
+      --accent:#38bdf8;      /* sky-400 */
+      --danger:#ef4444;      /* red-500 */
+      --border:#1f2937;      /* gray-800 */
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family:ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      color:var(--text); background:linear-gradient(180deg,#0b1224, var(--bg));
+    }
+    .banner{background:linear-gradient(90deg,var(--brand),var(--accent)); color:#062a12; padding:10px 16px; text-align:center; font-weight:700}
+    .wrap{display:grid; grid-template-columns:280px 1fr; gap:16px; max-width:1200px; margin:24px auto; padding:0 16px}
+    .sidebar{position:sticky; top:12px; align-self:start; background:rgba(17,24,39,.7); border:1px solid var(--border); border-radius:16px; padding:12px}
+    .logo{display:flex; align-items:center; gap:10px; padding:10px 8px; border-bottom:1px dashed var(--border); margin-bottom:8px}
+    .logo .mark{width:28px; height:28px; border-radius:10px; background:radial-gradient(circle at 30% 30%, #fff8, transparent 40%), linear-gradient(135deg,var(--brand),var(--accent));}
+    .nav{display:grid; gap:6px}
+    .nav button{all:unset; display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:12px; cursor:not-allowed; border:1px solid transparent}
+    .nav button:hover{background:#0b1326}
+    .nav .active{background:#0b1326; border-color:var(--border)}
+
+    .content{display:grid; gap:16px}
+    .hero{background:linear-gradient(180deg,#0b1326, #0b1224); border:1px solid var(--border); border-radius:18px; padding:20px}
+    .grid{display:grid; gap:16px}
+    @media(min-width:900px){ .grid{grid-template-columns:repeat(3,1fr)} }
+
+    .card{background:rgba(17,24,39,.7); border:1px solid var(--border); border-radius:16px; padding:16px; backdrop-filter: blur(6px)}
+    .card h3{margin:0 0 10px 0}
+    .muted{color:var(--muted); font-size:0.95rem}
+
+    .row{display:grid; gap:10px; margin:10px 0}
+    .row.two{grid-template-columns:1fr 1fr}
+    .row.three{grid-template-columns:repeat(3,1fr)}
+    label{font-size:.9rem; color:var(--muted)}
+    input, select, textarea{width:100%; padding:12px 12px; border-radius:12px; border:1px solid var(--border); background:#0b1224; color:var(--text)}
+    textarea{min-height:100px; resize:vertical}
+
+    .btns{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px}
+    .btn{padding:10px 14px; border-radius:12px; border:1px solid var(--border); background:#0b1326; color:var(--text); font-weight:600; cursor:not-allowed}
+    .btn.primary{background:linear-gradient(90deg,var(--brand),#16a34a); color:#062a12}
+    .btn.ghost{background:transparent}
+    .tag{display:inline-block; font-size:.78rem; padding:6px 10px; border-radius:999px; border:1px solid var(--border); background:#0a1222; color:var(--muted)}
+
+    .footer{opacity:.8; text-align:center; padding:24px 0; font-size:.9rem}
+    .badge{display:inline-flex; align-items:center; gap:8px; padding:8px 10px; border-radius:999px; background:#0c152a; border:1px solid var(--border)}
+    .kpi{display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-top:12px}
+    .kpi .metric{background:#0a1324; border:1px solid var(--border); padding:10px; border-radius:12px; text-align:center}
+    .kbd{font-family:ui-monospace, SFMono-Regular, Menlo, Consolas; background:#0a1324; border:1px solid var(--border); padding:3px 8px; border-radius:8px}
+  </style>
+</head>
+<body>
+  <div class="banner" role="status" aria-live="polite">
+    Línea gratuita 24/7: <span aria-label="número">800 123 456</span> • Atención humana y prioritaria
+  </div>
+
+  <main class="wrap" aria-label="Prototipo no funcional de aplicación de asistencia">
+    <aside class="sidebar" aria-label="Navegación principal (no interactiva)">
+      <div class="logo">
+        <div class="mark" aria-hidden="true"></div>
+        <div>
+          <strong>Asistencia Salud</strong><br>
+          <span class="muted">Prototipo UI • No funcional</span>
+        </div>
+      </div>
+      <div class="nav" role="tablist" aria-disabled="true">
+        <button class="active" role="tab" aria-selected="true" aria-disabled="true">📅 Solicitar cita</button>
+        <button role="tab" aria-disabled="true">💊 Medicamentos</button>
+        <button role="tab" aria-disabled="true">📍 Puntos de apoyo</button>
+        <button role="tab" aria-disabled="true">☎️ Línea telefónica</button>
+        <button role="tab" aria-disabled="true">🤝 Acompañamiento</button>
+        <button role="tab" aria-disabled="true">🗂️ Mi historial</button>
+        <button role="tab" aria-disabled="true">🧩 Accesibilidad</button>
+        <button role="tab" aria-disabled="true">👩‍💼 Panel operador</button>
+      </div>
+    </aside>
+
+    <section class="content">
+      <!-- Hero / resumen -->
+      <div class="hero" role="region" aria-label="Resumen">
+        <h1 style="margin:0 0 6px 0">Programa de Asistencia Presencial y Telefónica</h1>
+        <p class="muted" style="margin:0">Interfaz de ejemplo para apoyar a personas mayores o con discapacidad en la gestión de citas y medicamentos. Todos los controles están <strong>deshabilitados</strong> por ser un prototipo no funcional.</p>
+        <div class="kpi" aria-hidden="true">
+          <div class="metric"><div class="muted">Tiempo estimado de llamada</div><div><strong>~ 3 min</strong></div></div>
+          <div class="metric"><div class="muted">Puntos de apoyo</div><div><strong>120</strong></div></div>
+          <div class="metric"><div class="muted">Operadores activos</div><div><strong>24/7</strong></div></div>
+          <div class="metric"><div class="muted">Cobertura</div><div><strong>Nacional</strong></div></div>
+        </div>
+      </div>
+
+      <!-- Sección: Solicitar cita -->
+      <div class="card" role="region" aria-label="Solicitar cita (no funcional)">
+        <h3>📅 Solicitar cita</h3>
+        <p class="muted">Complete los datos básicos. Este formulario es ilustrativo; los botones están deshabilitados.</p>
+        <div class="row three">
+          <div>
+            <label for="tipo-doc">Tipo de documento</label>
+            <select id="tipo-doc" disabled>
+              <option>CC</option>
+              <option>TI</option>
+              <option>CE</option>
+            </select>
+          </div>
+          <div>
+            <label for="doc">Número de documento</label>
+            <input id="doc" type="text" placeholder="Ej. 1.234.567.890" disabled />
+          </div>
+          <div>
+            <label for="telefono">Teléfono de contacto</label>
+            <input id="telefono" type="tel" placeholder="Ej. 300 000 0000" disabled />
+          </div>
+        </div>
+        <div class="row two">
+          <div>
+            <label for="especialidad">Especialidad</label>
+            <select id="especialidad" disabled>
+              <option>Medicina General</option>
+              <option>Geriatría</option>
+              <option>Cardiología</option>
+              <option>Oftalmología</option>
+            </select>
+          </div>
+          <div>
+            <label for="sede">Sede preferida</label>
+            <select id="sede" disabled>
+              <option>Más cercana</option>
+              <option>Centro</option>
+              <option>Norte</option>
+              <option>Sur</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <label for="observaciones">Observaciones (movilidad, ayudas, acompañante)</label>
+            <textarea id="observaciones" placeholder="Escriba aquí…" disabled></textarea>
+          </div>
+        </div>
+        <div class="btns">
+          <button class="btn primary" aria-disabled="true" disabled>Solicitar cita</button>
+          <button class="btn" aria-disabled="true" disabled>Guardar para llamada</button>
+          <span class="tag" title="Demostración">No funcional</span>
+        </div>
+      </div>
+
+      <!-- Sección: Medicamentos -->
+      <div class="grid">
+        <div class="card" role="region" aria-label="Medicamentos (no funcional)">
+          <h3>💊 Medicamentos</h3>
+          <p class="muted">Consulta de disponibilidad y puntos de entrega.</p>
+          <div class="row two">
+            <div>
+              <label for="medicamento">Nombre del medicamento</label>
+              <input id="medicamento" placeholder="Ej. Metformina 850 mg" disabled />
+            </div>
+            <div>
+              <label for="autorizacion">Número de autorización</label>
+              <input id="autorizacion" placeholder="AA-000000" disabled />
+            </div>
+          </div>
+          <div class="btns">
+            <button class="btn primary" disabled>Buscar en red</button>
+            <button class="btn ghost" disabled>Imprimir indicaciones</button>
+          </div>
+        </div>
+
+        <!-- Puntos de apoyo -->
+        <div class="card" role="region" aria-label="Puntos de apoyo (no funcional)">
+          <h3>📍 Puntos de apoyo</h3>
+          <p class="muted">Centros de salud, alcaldías y bibliotecas con ventanilla de ayuda.</p>
+          <div class="row two">
+            <div>
+              <label for="localidad">Localidad / Barrio</label>
+              <input id="localidad" placeholder="Ej. Suba, Kennedy…" disabled />
+            </div>
+            <div>
+              <label for="accesibilidad">Requerimientos de accesibilidad</label>
+              <select id="accesibilidad" disabled>
+                <option>Rampas y silla de ruedas</option>
+                <option>Intérprete de señas</option>
+                <option>Letra grande</option>
+              </select>
+            </div>
+          </div>
+          <div class="btns">
+            <button class="btn" disabled>Ver en mapa</button>
+            <button class="btn" disabled>Agendar visita</button>
+          </div>
+        </div>
+
+        <!-- Línea telefónica -->
+        <div class="card" role="region" aria-label="Línea telefónica (información)">
+          <h3>☎️ Línea telefónica 24/7</h3>
+          <p class="muted">Atención humana. Un familiar o cuidador puede llamar en su nombre.</p>
+          <ul>
+            <li>Gratuita desde fijo y celular: <span class="badge">800 123 456</span></li>
+            <li>Operadores entrenados para confirmar comprensión y repetir instrucciones.</li>
+            <li>Protocolos de priorización para personas mayores y con discapacidad.</li>
+          </ul>
+          <div class="btns">
+            <button class="btn primary" disabled>Llamar ahora</button>
+            <button class="btn" disabled>Solicitar devolución de llamada</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Acompañamiento y Registro -->
+      <div class="grid">
+        <div class="card" role="region" aria-label="Acompañamiento (no funcional)">
+          <h3>🤝 Acompañamiento en casa</h3>
+          <p class="muted">Red de voluntarios y gestores de salud para visitas programadas.</p>
+          <div class="row two">
+            <div>
+              <label for="fecha-visita">Fecha preferida</label>
+              <input id="fecha-visita" type="date" disabled />
+            </div>
+            <div>
+              <label for="franja">Franja horaria</label>
+              <select id="franja" disabled>
+                <option>Mañana</option>
+                <option>Tarde</option>
+                <option>Noche</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <label for="detalle">Detalle de necesidad</label>
+            <textarea id="detalle" placeholder="Ej. Movilidad reducida, entrega de medicamentos, acompañante" disabled></textarea>
+          </div>
+          <div class="btns">
+            <button class="btn primary" disabled>Solicitar acompañamiento</button>
+            <button class="btn ghost" disabled>Descargar carta de autorización</button>
+          </div>
+        </div>
+
+        <div class="card" role="region" aria-label="Registro interno (no funcional)">
+          <h3>🗂️ Sistema de registro</h3>
+          <p class="muted">Historial único de usuarios, citas y entregas (demostración).</p>
+          <div class="row two">
+            <div>
+              <label for="buscar-doc">Buscar por documento</label>
+              <input id="buscar-doc" placeholder="CC / TI / CE" disabled />
+            </div>
+            <div>
+              <label for="filtro">Filtro rápido</label>
+              <select id="filtro" disabled>
+                <option>Todos</option>
+                <option>Solo citas</option>
+                <option>Solo medicamentos</option>
+              </select>
+            </div>
+          </div>
+          <div class="btns">
+            <button class="btn" disabled>Ver historial</button>
+            <button class="btn" disabled>Exportar PDF</button>
+          </div>
+        </div>
+
+        <div class="card" role="region" aria-label="Accesibilidad (controles informativos)">
+          <h3>🧩 Accesibilidad</h3>
+          <p class="muted">Controles demostrativos para mejorar la legibilidad.</p>
+          <div class="row two">
+            <div>
+              <label>Contraste</label>
+              <div class="btns">
+                <button class="btn" disabled>Modo alto contraste</button>
+                <button class="btn" disabled>Fuente grande</button>
+              </div>
+            </div>
+            <div>
+              <label>Canales alternativos</label>
+              <div class="btns">
+                <button class="btn" disabled>Imprimir instrucciones</button>
+                <button class="btn" disabled>Enviar SMS</button>
+              </div>
+            </div>
+          </div>
+          <p class="muted">Sugerencia: indique a los operadores presionar <span class="kbd">F1</span> para el protocolo de lectura lenta.</p>
+        </div>
+      </div>
+
+      <!-- Panel del operador -->
+      <div class="card" role="region" aria-label="Panel del operador (no funcional)">
+        <h3>👩‍💼 Panel del operador</h3>
+        <p class="muted">Guía de flujo de llamada y checklist de confirmación.</p>
+        <ol>
+          <li>Verificar identidad y <em>contacto alterno</em>.</li>
+          <li>Identificar necesidad: <span class="tag">Cita</span> / <span class="tag">Medicamento</span> / <span class="tag">Acompañamiento</span>.</li>
+          <li>Ofrecer punto de apoyo más cercano y opciones de accesibilidad.</li>
+          <li>Leer instrucciones, pedir repetición y confirmar comprensión.</li>
+          <li>Generar comprobante e indicaciones impresas (si aplica).</li>
+        </ol>
+        <div class="btns">
+          <button class="btn primary" disabled>Iniciar llamada</button>
+          <button class="btn" disabled>Marcar como prioritaria</button>
+          <button class="btn" disabled>Finalizar y registrar</button>
+        </div>
+      </div>
+
+      <div class="footer">© 2025 Programa de Asistencia – Prototipo UI (No funcional). Diseño accesible y multicanal.</div>
+    </section>
+  </main>
+</body>
+</html>
