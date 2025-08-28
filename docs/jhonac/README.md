@@ -72,7 +72,7 @@ flowchart TB
     A5 --> O
     A6 --> O
 
-**Planteamiento del problema** 
+#Plantiamento de problematica
 Encontramos el plantiamiento en donde ponemos que una idea de negocio la cual tenga el potencial de crecimiento
 y en donde me suguiriera 3 ideas
 
