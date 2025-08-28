@@ -35,5 +35,7 @@
     S4 --> P
     S5 --> P
 
+en donde podemos ver cuales son las problematicas y las causas que se encuentran en nuestra problematica 
+
 
 
