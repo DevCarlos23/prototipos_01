@@ -71,6 +71,12 @@ flowchart TB
     A4 --> O
     A5 --> O
     A6 --> O
+
+**Planteamiento del problema** 
+Encontramos el plantiamiento en donde ponemos que una idea de negocio la cual tenga el potencial de crecimiento
+y en donde me suguiriera 3 ideas
+
+Quiero crear una idea de negocio que sea rentable, escalable y con potencial de crecimiento digital. Estoy interesado/a en hay una abuelita y una tía la cual tiene un problema en congénito en donde es muy difícil poderles solicitarles una cita o poder encontrar los lugares en donde les entreguen sus medicamentos. Sugiere 3 ideas innovadoras que incluyan el uso de tecnología (como apps, plataformas web o soluciones digitales). Me gustaría que fueran accesibles con bajo presupuesto inicial y que puedan crecer progresivamente. Incluye una breve descripción de cada idea, el público objetivo y el problema que resuelve.
           
  
 
