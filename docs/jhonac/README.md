@@ -7,8 +7,8 @@
 #Árbol de problemas 
 
 * Este es el codigo de mi arbol de problemas en donde encontraremos las prablematicas y las causas , con la ayuda de la ia  
+```mermaid
 flowchart TB
-
       %% Problema central
       P["Dificultad de personas mayores o con discapacidad<br>para acceder a citas médicas y medicamentos<br>por depender de trámites digitales"]
 
@@ -34,7 +34,7 @@ flowchart TB
       S3 --> P
       S4 --> P
       S5 --> P
-
+```
  
 
 #Plantiamento de problematica
