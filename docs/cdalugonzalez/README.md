@@ -9,9 +9,8 @@ productos compra, como fijar los precios y como promocionar la tienda.
 
 ## Arbol de Problemas ##
 
-
+```mermaid
   flowchart LR
-  
     %% Problema central
     CP[Falta de control en el inventario de la tienda]
 
@@ -50,6 +49,7 @@ productos compra, como fijar los precios y como promocionar la tienda.
 
     CP --> CE3
     CE3 --> CE3a
+```
 
 ## Prompt ##
 
