@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MVP – App de Inventario para Tiendas de Barrio</title>
+  <style>
+    :root{--bg:#0f172a;--panel:#111827;--muted:#1f2937;--soft:#e5e7eb;--ink:#f9fafb;--accent:#22c55e;--accent2:#3b82f6;--warn:#f59e0b;--danger:#ef4444}
+    *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Ubuntu,Arial} a{color:inherit}
+    header{display:flex;gap:12px;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid #263045;background:linear-gradient(180deg,#0b1223,#0a1020)}
+    header h1{margin:0;font-size:18px;font-weight:700;letter-spacing:.3px}
+    header .actions{display:flex;gap:8px;flex-wrap:wrap}
+    button,.btn{appearance:none;border:0;border-radius:12px;padding:10px 14px;background:var(--muted);color:var(--ink);font-weight:600;cursor:pointer;transition:transform .06s ease,opacity .2s}
+    button:hover{transform:translateY(-1px)} button:active{transform:translateY(0)}
+    .btn-primary{background:var(--accent2)} .btn-success{background:var(--accent)} .btn-warn{background:var(--warn)} .btn-danger{background:var(--danger)}
+    main{display:grid;grid-template-columns:320px 1fr;gap:16px;padding:16px}
+    .card{background:var(--panel);border:1px solid #1e293b;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+    .card .hd{padding:14px 14px 0 14px;font-weight:700}
+    .card .bd{padding:14px}
+    .muted{opacity:.85;color:#e5e7eb}
+    .grid{display:grid;gap:10px}
+    input,select{width:100%;padding:10px;border:1px solid #263045;border-radius:12px;background:#0b1222;color:var(--ink)}
+    label{font-size:12px;opacity:.9}
+    .row{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+    .table{width:100%;border-collapse:collapse}
+    .table th,.table td{border-bottom:1px solid #253049;padding:10px;text-align:left;font-size:14px}
+    .table th{font-size:12px;text-transform:uppercase;letter-spacing:.06em;opacity:.8}
+    .pill{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:4px 8px;font-size:12px}
+    .pill.low{background:rgba(245,158,11,.12);color:#fde68a}
+    .pill.exp{background:rgba(239,68,68,.12);color:#fecaca}
+    .tag{background:#0b1222;border:1px solid #253049;padding:4px 8px;border-radius:999px;font-size:12px}
+    .flex{display:flex;gap:8px;align-items:center}
+    .right{margin-left:auto}
+    .toolbar{display:flex;gap:8px;flex-wrap:wrap}
+    .alert{border-radius:14px;border:1px dashed #31405f;padding:12px;display:flex;gap:12px;align-items:center;background:#0b1222}
+    .kpi{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+    .kpi .item{background:#0b1222;border:1px solid #263045;border-radius:14px;padding:12px}
+    .kpi .item h3{margin:0;font-size:12px;opacity:.8}
+    .kpi .item p{margin:6px 0 0 0;font-size:20px;font-weight:800}
+    .footnote{padding:8px 14px;font-size:12px;opacity:.7}
+    .nowrap{white-space:nowrap}
+    .hidden{display:none}
+    @media (max-width: 980px){main{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Inventario – MVP <span class="muted">(localStorage)</span></h1>
+    <div class="actions">
+      <button class="btn" id="btnExport">Exportar CSV</button>
+      <label class="btn" for="fileImport" style="cursor:pointer">Importar CSV</label>
+      <input id="fileImport" type="file" accept=".csv" style="display:none" />
+      <button class="btn-success" id="btnDemo">Cargar demo</button>
+      <button class="btn-primary" id="btnClear">Limpiar datos</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- Columna izquierda: formulario y alertas -->
+    <section class="card" id="panelForm">
+      <div class="hd">Agregar / Editar producto</div>
+      <div class="bd">
+        <form id="formProducto" class="grid">
+          <div class="row">
+            <div>
+              <label>Nombre</label>
+              <input required id="nombre" placeholder="Ej: Arroz 500g" />
+            </div>
+            <div>
+              <label>Categoría</label>
+              <input id="categoria" placeholder="Granos / Aseo / Bebidas" />
+            </div>
+          </div>
+          <div class="row">
+            <div>
+              <label>SKU / Código de barras</label>
+              <input id="sku" placeholder="Escanear o escribir" />
+            </div>
+            <div>
+              <label>Fecha de vencimiento</label>
+              <input id="vencimiento" type="date" />
+            </div>
+          </div>
+          <div class="row">
+            <div>
+              <label>Costo unitario</label>
+              <input id="costo" type="number" step="0.01" min="0" placeholder="0.00" />
+            </div>
+            <div>
+              <label>Precio venta</label>
+              <input id="precio" type="number" step="0.01" min="0" placeholder="0.00" />
+            </div>
+          </div>
+          <div class="row">
+            <div>
+              <label>Stock</label>
+              <input id="stock" type="number" step="1" min="0" placeholder="0" />
+            </div>
+            <div>
+              <label>Mín. stock (alerta)</label>
+              <input id="minStock" type="number" step="1" min="0" placeholder="3" />
+            </div>
+          </div>
+          <div class="toolbar">
+            <button class="btn-success" type="submit" id="btnGuardar">Guardar</button>
+            <button class="btn" type="reset" id="btnReset">Limpiar</button>
+          </div>
+          <input type="hidden" id="editIndex" />
+        </form>
+      </div>
+      <div class="footnote">Sugerencia: puedes usar un lector de código de barras USB y enfocarte en el campo <strong>SKU</strong>.</div>
+    </section>
+
+    <section class="card">
+      <div class="hd">Panel</div>
+      <div class="bd grid">
+        <div class="kpi">
+          <div class="item"><h3>Productos</h3><p id="kpiProductos">0</p></div>
+          <div class="item"><h3>Unidades totales</h3><p id="kpiUnidades">0</p></div>
+          <div class="item"><h3>Valor inventario</h3><p id="kpiValor">$0</p></div>
+        </div>
+
+        <div id="alertas" class="grid"></div>
+
+        <div class="toolbar">
+          <input id="search" placeholder="Buscar por nombre, SKU o categoría…" />
+          <select id="filterEstado">
+            <option value="">Todos</option>
+            <option value="low">Bajo stock</option>
+            <option value="exp">Próx. a vencer</option>
+          </select>
+          <select id="sortBy">
+            <option value="nombre">Ordenar: Nombre</option>
+            <option value="stock">Ordenar: Stock</option>
+            <option value="vencimiento">Ordenar: Vencimiento</option>
+            <option value="rentabilidad">Ordenar: Rentabilidad</option>
+          </select>
+        </div>
+
+        <div class="card" style="background:#0b1222;border-color:#253049">
+          <div class="bd" style="overflow:auto">
+            <table class="table" id="tabla">
+              <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th>SKU</th>
+                  <th>Cat.</th>
+                  <th class="nowrap">Vencimiento</th>
+                  <th>Stock</th>
+                  <th>Min</th>
+                  <th>Costo</th>
+                  <th>Precio</th>
+                  <th>Rentab.</th>
+                  <th>Estado</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // ====== Estado ======
+    const KEY = 'inv.mvp.v1';
+    const state = { productos: [], filtro: '', estado: '', sortBy: 'nombre' };
+
+    // ====== Utilidades ======
+    const $ = s => document.querySelector(s);
+    const $$ = s => Array.from(document.querySelectorAll(s));
+    const money = n => new Intl.NumberFormat('es-CO',{style:'currency',currency:'COP',maximumFractionDigits:0}).format(n||0);
+    const daysBetween = (a,b)=> Math.ceil((a.getTime()-b.getTime())/86400000);
+
+    function save(){ localStorage.setItem(KEY, JSON.stringify(state.productos)); }
+    function load(){ try{ state.productos = JSON.parse(localStorage.getItem(KEY)||'[]'); }catch{ state.productos=[] } }
+
+    function upsert(prod, index){
+      if(index !== '' && index !== undefined){ state.productos[+index] = prod; }
+      else { state.productos.push(prod); }
+      save(); render();
+    }
+
+    function removeAt(i){ state.productos.splice(i,1); save(); render(); }
+
+    function parseDate(v){ if(!v) return null; const d = new Date(v); return isNaN(+d)? null : d; }
+
+    // ====== Render ======
+    function render(){
+      // KPIs
+      const unidades = state.productos.reduce((a,p)=>a+(+p.stock||0),0);
+      const valor = state.productos.reduce((a,p)=>a+((+p.costo||0)*(+p.stock||0)),0);
+      $('#kpiProductos').textContent = state.productos.length;
+      $('#kpiUnidades').textContent = unidades;
+      $('#kpiValor').textContent = money(valor);
+
+      // Alertas
+      const lows = state.productos.filter(p => +p.stock <= (+p.minStock||0));
+      const exps = state.productos.filter(p => {
+        const d = parseDate(p.vencimiento); if(!d) return false; return daysBetween(d,new Date())<=30; // 30 días
+      });
+      const wrap = $('#alertas');
+      wrap.innerHTML = '';
+      if(lows.length){
+        wrap.insertAdjacentHTML('beforeend', `<div class="alert"><span class="pill low">Bajo stock</span> ${lows.length} productos con stock por debajo del mínimo.</div>`)
+      }
+      if(exps.length){
+        wrap.insertAdjacentHTML('beforeend', `<div class="alert"><span class="pill exp">Próx. a vencer</span> ${exps.length} productos con vencimiento cercano.</div>`)
+      }
+
+      // Filtros y orden
+      let rows = [...state.productos];
+      const q = state.filtro.toLowerCase();
+      if(q){ rows = rows.filter(p => [p.nombre,p.sku,p.categoria].join('|').toLowerCase().includes(q)); }
+      if(state.estado==='low') rows = rows.filter(p => +p.stock <= (+p.minStock||0));
+      if(state.estado==='exp') rows = rows.filter(p => { const d=parseDate(p.vencimiento); return d && daysBetween(d,new Date())<=30; });
+
+      rows.sort((a,b)=>{
+        switch(state.sortBy){
+          case 'stock': return (+a.stock||0) - (+b.stock||0);
+          case 'vencimiento': return (parseDate(a.vencimiento)||new Date(8640000000000000)) - (parseDate(b.vencimiento)||new Date(8640000000000000));
+          case 'rentabilidad': {
+            const ra = (+a.precio||0) - (+a.costo||0);
+            const rb = (+b.precio||0) - (+b.costo||0);
+            return rb - ra;
+          }
+          default: return a.nombre.localeCompare(b.nombre);
+        }
+      });
+
+      // Tabla
+      const tbody = $('#tbody');
+      tbody.innerHTML = rows.map(p=>{
+        const d = parseDate(p.vencimiento);
+        const isLow = +p.stock <= (+p.minStock||0);
+        const isExp = d && daysBetween(d,new Date())<=30;
+        const renta = (+p.precio||0) - (+p.costo||0);
+        const estado = [isLow?'<span class="pill low">Bajo stock</span>':'', isExp?'<span class="pill exp">Próx. a vencer</span>':''].filter(Boolean).join(' ');
+        return `<tr>
+          <td>${p.nombre||''}</td>
+          <td class="nowrap">${p.sku||''}</td>
+          <td>${p.categoria||''}</td>
+          <td class="nowrap">${d? d.toLocaleDateString() : '-'}</td>
+          <td>${p.stock||0}</td>
+          <td>${p.minStock||0}</td>
+          <td>${money(p.costo||0)}</td>
+          <td>${money(p.precio||0)}</td>
+          <td>${money(renta)}</td>
+          <td>${estado||'<span class="tag">OK</span>'}</td>
+          <td class="nowrap">
+            <button class="btn" data-act="sell" data-id="${p.sku}">Vender -1</button>
+            <button class="btn" data-act="restock" data-id="${p.sku}">+1</button>
+            <button class="btn" data-act="edit" data-id="${p.sku}">Editar</button>
+            <button class="btn-danger" data-act="del" data-id="${p.sku}">Borrar</button>
+          </td>
+        </tr>`
+      }).join('');
+    }
+
+    // ====== Eventos UI ======
+    $('#formProducto').addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const prod = {
+        nombre: $('#nombre').value.trim(),
+        categoria: $('#categoria').value.trim(),
+        sku: $('#sku').value.trim(),
+        vencimiento: $('#vencimiento').value || '',
+        costo: +$('#costo').value || 0,
+        precio: +$('#precio').value || 0,
+        stock: +$('#stock').value || 0,
+        minStock: +$('#minStock').value || 0,
+      };
+      const idx = $('#editIndex').value;
+      upsert(prod, idx);
+      $('#formProducto').reset();
+      $('#editIndex').value = '';
+      $('#nombre').focus();
+    });
+
+    $('#tbody').addEventListener('click', (e)=>{
+      const btn = e.target.closest('button');
+      if(!btn) return;
+      const id = btn.dataset.id;
+      const ix = state.productos.findIndex(p=> String(p.sku)===String(id));
+      if(ix<0) return;
+      const act = btn.dataset.act;
+      if(act==='sell'){ state.productos[ix].stock = Math.max(0, (+state.productos[ix].stock||0)-1); save(); render(); }
+      if(act==='restock'){ state.productos[ix].stock = (+state.productos[ix].stock||0)+1; save(); render(); }
+      if(act==='edit'){
+        const p = state.productos[ix];
+        $('#nombre').value = p.nombre||'';
+        $('#categoria').value = p.categoria||'';
+        $('#sku').value = p.sku||'';
+        $('#vencimiento').value = p.vencimiento||'';
+        $('#costo').value = p.costo||0;
+        $('#precio').value = p.precio||0;
+        $('#stock').value = p.stock||0;
+        $('#minStock').value = p.minStock||0;
+        $('#editIndex').value = ix;
+        window.scrollTo({top:0,behavior:'smooth'});
+      }
+      if(act==='del'){
+        if(confirm('¿Borrar este producto?')) removeAt(ix);
+      }
+    });
+
+    $('#search').addEventListener('input', e=>{ state.filtro = e.target.value; render(); });
+    $('#filterEstado').addEventListener('change', e=>{ state.estado = e.target.value; render(); });
+    $('#sortBy').addEventListener('change', e=>{ state.sortBy = e.target.value; render(); });
+
+    // ====== Importar / Exportar CSV ======
+    function toCSV(){
+      const header = ['nombre','categoria','sku','vencimiento','costo','precio','stock','minStock'];
+      const rows = state.productos.map(p=> header.map(h=>`"${String(p[h]??'').replace(/"/g,'""')}"`).join(','));
+      return [header.join(','), ...rows].join('\n');
+    }
+    function download(filename, text){
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(new Blob([text], {type:'text/csv'}));
+      a.download = filename; a.click(); URL.revokeObjectURL(a.href);
+    }
+    $('#btnExport').addEventListener('click', ()=> download('inventario.csv', toCSV()));
+
+    $('#fileImport').addEventListener('change', async (e)=>{
+      const file = e.target.files[0]; if(!file) return;
+      const text = await file.text();
+      const [headerLine, ...lines] = text.split(/\r?\n/).filter(Boolean);
+      const headers = headerLine.split(',').map(h=>h.replace(/^\"|\"$/g,''));
+      const idx = Object.fromEntries(headers.map((h,i)=>[h,i]));
+      const prods = lines.map(line=>{
+        const cols = line.match(/((?<!\\)\"(?:[^\"]|\\\")*\"|[^,]+)/g).map(c=>c.replace(/^\"|\"$/g,'').replace(/\\\"/g,'\"'));
+        return {
+          nombre: cols[idx.nombre]||'', categoria: cols[idx.categoria]||'', sku: cols[idx.sku]||'',
+          vencimiento: cols[idx.vencimiento]||'', costo: +cols[idx.costo]||0, precio: +cols[idx.precio]||0,
+          stock: +cols[idx.stock]||0, minStock: +cols[idx.minStock]||0,
+        };
+      });
+      state.productos = prods; save(); render(); e.target.value='';
+    });
+
+    // ====== Demo y limpieza ======
+    $('#btnDemo').addEventListener('click', ()=>{
+      state.productos = [
+        {nombre:'Arroz 500g', categoria:'Granos', sku:'7701234567890', vencimiento: new Date(Date.now()+1000*60*60*24*90).toISOString().slice(0,10), costo: 2500, precio: 3500, stock: 10, minStock: 3},
+        {nombre:'Aceite 1L', categoria:'Despensa', sku:'7700987654321', vencimiento: new Date(Date.now()+1000*60*60*24*25).toISOString().slice(0,10), costo: 12000, precio: 16000, stock: 2, minStock: 4},
+        {nombre:'Galletas', categoria:'Snacks', sku:'7705555555555', vencimiento: new Date(Date.now()+1000*60*60*24*15).toISOString().slice(0,10), costo: 1000, precio: 1800, stock: 8, minStock: 2},
+      ];
+      save(); render();
+    });
+
+    $('#btnClear').addEventListener('click', ()=>{
+      if(confirm('Esto eliminará los productos guardados en este navegador.')){
+        state.productos = []; save(); render();
+      }
+    });
+
+    // ====== Inicialización ======
+    load(); render();
+  </script>
+</body>
+</html>
